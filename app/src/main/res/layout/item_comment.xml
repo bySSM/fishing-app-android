@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:layout_marginStart="@dimen/spacing_medium"
+    android:layout_marginEnd="@dimen/spacing_medium"
+    android:layout_marginTop="@dimen/spacing_xs"
+    android:layout_marginBottom="@dimen/spacing_xs"
+
+    android:backgroundTint="@color/surface"
+
+    app:cardCornerRadius="@dimen/card_radius_small"
+    app:cardElevation="@dimen/card_elevation">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/card_padding">
+
+        <!-- Автор и дата -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/commentUsernameTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="username"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/text_secondary"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/commentDateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_small"
+                android:text="01.09.2026 20:00"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_caption"
+                android:maxLines="1" />
+
+        </LinearLayout>
+
+
+        <!-- Текст комментария -->
+
+        <TextView
+            android:id="@+id/commentContentTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="Комментарий"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_body"
+            android:lineSpacingExtra="2dp" />
+
+
+        <!-- Удалить -->
+
+        <Button
+            android:id="@+id/deleteCommentButton"
+            style="@style/FishingApp.Button.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:layout_marginTop="@dimen/spacing_xs"
+            android:paddingStart="@dimen/spacing_small"
+            android:paddingEnd="@dimen/spacing_small"
+            android:text="Удалить"
+            android:textColor="@color/error"
+            android:textSize="@dimen/text_caption"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- Base -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Main application palette -->
+    <color name="primary">#176B63</color>
+    <color name="primary_dark">#0F4F4A</color>
+    <color name="primary_light">#4FA89F</color>
+
+    <color name="accent">#2A9D8F</color>
+
+    <!-- Backgrounds -->
+    <color name="background">#F5F7F6</color>
+    <color name="surface">#FFFFFFFF</color>
+    <color name="surface_variant">#E8EFED</color>
+
+    <!-- Text -->
+    <color name="text_primary">#17211F</color>
+    <color name="text_secondary">#66736F</color>
+    <color name="text_on_primary">#FFFFFFFF</color>
+
+    <!-- UI -->
+    <color name="divider">#D9E1DE</color>
+    <color name="input_background">#F1F5F3</color>
+
+    <!-- Semantic -->
+    <color name="success">#2E7D5B</color>
+    <color name="error">#BA1A1A</color>
+    <color name="rating_gold">#D99A22</color>
+
+    <!-- Aquarium -->
+    <color name="aquarium_background">#1A237E</color>
+    <color name="aquarium_dark">#0D47A1</color>
+    <color name="aquarium_light">#29B6F6</color>
+
+</resources>

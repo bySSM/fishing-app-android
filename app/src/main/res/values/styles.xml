@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- ========================================================= -->
+    <!-- Base application style                                    -->
+    <!-- ========================================================= -->
+
+    <style name="FishingApp">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+
+    <!-- ========================================================= -->
+    <!-- Base text style                                           -->
+    <!-- ========================================================= -->
+
+    <style name="FishingApp.Text" parent="FishingApp">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:fontFamily">sans</item>
+    </style>
+
+    <style name="FishingApp.Text.Title" parent="FishingApp.Text">
+        <item name="android:textSize">@dimen/text_title</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="FishingApp.Text.Heading" parent="FishingApp.Text">
+        <item name="android:textSize">@dimen/text_heading</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="FishingApp.Text.Subheading" parent="FishingApp.Text">
+        <item name="android:textSize">@dimen/text_subheading</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="FishingApp.Text.Body" parent="FishingApp.Text">
+        <item name="android:textSize">@dimen/text_body</item>
+    </style>
+
+    <style name="FishingApp.Text.Secondary" parent="FishingApp.Text">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">@dimen/text_secondary</item>
+    </style>
+
+    <style name="FishingApp.Text.Caption" parent="FishingApp.Text">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">@dimen/text_caption</item>
+    </style>
+
+
+    <!-- ========================================================= -->
+    <!-- Base image style                                          -->
+    <!-- ========================================================= -->
+
+    <style name="FishingApp.Image" parent="FishingApp">
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="FishingApp.Image.Cover" parent="FishingApp.Image">
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+
+    <!-- ========================================================= -->
+    <!-- Buttons                                                    -->
+    <!-- ========================================================= -->
+
+    <style name="FishingApp.Button.Primary"
+        parent="Widget.Material3.Button">
+
+        <item name="android:minHeight">@dimen/button_height</item>
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+
+        <item name="backgroundTint">@color/primary</item>
+        <item name="android:textColor">@color/text_on_primary</item>
+
+        <item name="cornerRadius">@dimen/button_radius</item>
+
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+    </style>
+
+
+    <style name="FishingApp.Button.Secondary"
+        parent="Widget.Material3.Button.OutlinedButton">
+
+        <item name="android:minHeight">@dimen/button_height</item>
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+
+        <item name="android:textColor">@color/primary</item>
+        <item name="strokeColor">@color/primary</item>
+        <item name="strokeWidth">1dp</item>
+
+        <item name="cornerRadius">@dimen/button_radius</item>
+
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+    </style>
+
+
+    <style name="FishingApp.Button.Text"
+        parent="Widget.Material3.Button.TextButton">
+
+        <item name="android:minHeight">48dp</item>
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/primary</item>
+
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+    </style>
+
+
+    <!-- ========================================================= -->
+    <!-- Cards                                                      -->
+    <!-- ========================================================= -->
+
+    <style name="FishingApp.Card"
+        parent="Widget.Material3.CardView.Elevated">
+
+        <item name="cardCornerRadius">@dimen/card_radius</item>
+        <item name="cardElevation">@dimen/card_elevation</item>
+        <item name="cardBackgroundColor">@color/surface</item>
+    </style>
+
+
+    <!-- ========================================================= -->
+    <!-- Toolbar                                                    -->
+    <!-- ========================================================= -->
+
+    <style name="FishingApp.Toolbar"
+        parent="Widget.Material3.Toolbar">
+
+        <item name="android:background">@color/surface</item>
+        <item name="titleTextColor">@color/text_primary</item>
+        <item name="subtitleTextColor">@color/text_secondary</item>
+    </style>
+
+</resources>

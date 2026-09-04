@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="360dp"
+    android:height="90dp"
+    android:viewportWidth="360"
+    android:viewportHeight="90">
+
+    <!-- Задние камни -->
+
+    <path
+        android:fillColor="#536E76"
+        android:pathData="
+            M0,90
+            L0,70
+            C15,57 32,53 48,60
+            C61,65 67,76 72,90
+            Z" />
+
+    <path
+        android:fillColor="#607C83"
+        android:pathData="
+            M48,90
+            C54,72 67,61 82,61
+            C99,61 110,72 116,90
+            Z" />
+
+    <path
+        android:fillColor="#4E6870"
+        android:pathData="
+            M105,90
+            C113,66 128,53 145,57
+            C161,61 171,72 176,90
+            Z" />
+
+    <path
+        android:fillColor="#68828A"
+        android:pathData="
+            M161,90
+            C168,70 181,60 197,63
+            C215,66 223,77 227,90
+            Z" />
+
+    <path
+        android:fillColor="#506A72"
+        android:pathData="
+            M216,90
+            C224,68 240,58 258,63
+            C276,68 286,78 290,90
+            Z" />
+
+    <path
+        android:fillColor="#607A81"
+        android:pathData="
+            M279,90
+            C288,69 304,59 321,63
+            C340,67 351,78 360,90
+            Z" />
+
+    <!-- Передние камни -->
+
+    <path
+        android:fillColor="#71888D"
+        android:pathData="
+            M18,90
+            C22,74 34,67 48,69
+            C59,71 67,80 70,90
+            Z" />
+
+    <path
+        android:fillColor="#7D9297"
+        android:pathData="
+            M124,90
+            C128,76 139,69 151,71
+            C163,73 170,81 173,90
+            Z" />
+
+    <path
+        android:fillColor="#758B91"
+        android:pathData="
+            M244,90
+            C249,76 260,69 273,71
+            C286,73 294,82 297,90
+            Z" />
+
+    <!-- Блики на камнях -->
+
+    <path
+        android:fillColor="#9CB0B4"
+        android:pathData="
+            M15,71
+            C25,64 37,64 47,69
+            C36,68 27,70 18,75
+            Z" />
+
+    <path
+        android:fillColor="#A3B5B8"
+        android:pathData="
+            M69,65
+            C79,60 91,61 99,66
+            C88,65 79,67 71,70
+            Z" />
+
+    <path
+        android:fillColor="#A7B9BC"
+        android:pathData="
+            M130,73
+            C139,68 150,68 158,73
+            C148,72 140,74 132,77
+            Z" />
+
+    <path
+        android:fillColor="#9BAFB3"
+        android:pathData="
+            M230,68
+            C240,63 252,64 260,69
+            C249,68 240,70 232,73
+            Z" />
+
+    <path
+        android:fillColor="#A5B6B9"
+        android:pathData="
+            M292,68
+            C304,62 316,63 325,68
+            C314,67 304,69 294,73
+            Z" />
+
+</vector>

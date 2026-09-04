@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <!-- Карта -->
+    <org.osmdroid.views.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Кнопка назад -->
+    <Button
+        android:id="@+id/backButton"
+        style="@style/FishingApp.Button.Text"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="top|start"
+        android:layout_marginStart="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:padding="0dp"
+        android:text="←"
+        android:textSize="22sp"
+        android:gravity="center"
+        android:backgroundTint="@color/surface"
+        android:elevation="4dp"
+        android:contentDescription="Назад" />
+
+    <!-- Уловы рядом -->
+    <Button
+        android:id="@+id/nearbyButton"
+        style="@style/FishingApp.Button.Primary"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/button_height"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="@dimen/spacing_large"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:paddingStart="@dimen/spacing_large"
+        android:paddingEnd="@dimen/spacing_large"
+        android:text="Уловы рядом"
+        android:textSize="@dimen/text_body"
+        android:gravity="center"
+        android:singleLine="true"
+        android:elevation="6dp" />
+
+</FrameLayout>

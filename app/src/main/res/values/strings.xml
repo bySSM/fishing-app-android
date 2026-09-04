@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">FishingApp</string>
+    <string name="catch_default_title">Улов</string>
+    <string name="catch_weight_kg">Вес: %.1f кг</string>
+    <string name="catch_weight_unknown">Вес не указан</string>
+    <string name="catch_username">Рыбак: %s</string>
+    <string name="catch_no_photo">Нет фото</string>
+    <string name="catch_no_photo_toast">Нет фото у этого улова</string>
+    <string name="catch_view_details">Подробности по улову</string>
+    <string name="catch_photo_cd">Фото улова</string>
+    <string name="close_cd">Закрыть</string>
+</resources>

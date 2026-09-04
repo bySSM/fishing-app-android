@@ -1,0 +1,11 @@
+*.apk
+*.aab
+build/
+app/build/
+.idea/
+*.iml
+.DS_Store
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
