@@ -1,80 +1,74 @@
 # Fishing App Android
 
-Android-приложение для рыболовов. Java + Retrofit + Picasso + osmdroid.
+Android-клиент приложения для рыболовов. Java + Retrofit + JWT.
 
-## 📱 Функционал
+## 📱 Идея приложения
 
-### Реализовано:
-- [x] Регистрация и логин (JWT)
-- [x] Выход из аккаунта
-- [x] Автологин
-- [x] Аквариум с анимированными рыбами (топ-5)
-- [x] Просмотр аквариумов других пользователей
-- [x] Список уловов с карточками
-- [x] Добавление улова (с фото из галереи или камеры)
-- [x] Редактирование улова
-- [x] Удаление улова (с подтверждением)
-- [x] Камера (CameraX)
-- [x] Геолокация (GPS) — обязательна для создания улова
-- [x] Скрытие геолокации
-- [x] Рейтинг топ-100 (по сумме 15 самых тяжёлых рыб)
-- [x] Поиск пользователей (с позицией в рейтинге)
-- [x] Настройки (профиль, о программе, связь)
-- [x] Карта (OpenStreetMap/osmdroid)
-- [x] Метки уловов на карте 🐟
-- [x] Метка местоположения 📍
+Рыбаки фотографируют улов, коллекционируют как покемонов, смотрят уловы других, лайкают, соревнуются в рейтинге.
 
-## 🗺 Карта
-- Использует OpenStreetMap (osmdroid) — бесплатно, без API ключей
-- Источник тайлов: OpenTopo (детальная для природы)
-- Уловы отображаются эмодзи 🐟
-- Местоположение — эмодзи 📍
-- Кнопка "Уловы рядом" — загружает уловы в радиусе 100 км
+## 🛠 Стек технологий
 
-## 🛠 Стек
-- Java 17
-- Android SDK (minSdk 24, targetSdk 34)
-- Retrofit 2.9.0
-- Gson
+- Java
+- Android Gradle Plugin
+- Retrofit 2 + Gson
 - Picasso (загрузка изображений)
-- CameraX (камера)
-- Google Play Services Location (GPS)
-- osmdroid (OpenStreetMap)
+- CameraX
+- osmdroid (карты)
+- Google Play Services Location
+- EncryptedSharedPreferences (androidx.security.crypto)
 
-## 📁 Структура
+## ✅ Уже реализовано
 
-app/src/main/java/com/example/fishingapp/
-├── MainActivity.java — логин
-├── RegisterActivity.java — регистрация
-├── AquariumActivity.java — мой аквариум
-├── UserAquariumActivity.java — чужой аквариум
-├── CatchListActivity.java — мои уловы
-├── AddCatchActivity.java — добавление
-├── EditCatchActivity.java — редактирование
-├── CameraActivity.java — камера
-├── RatingActivity.java — рейтинг
-├── SearchActivity.java — поиск
-├── SettingsActivity.java — настройки
-├── MapActivity.java — карта (osmdroid)
-├── CatchAdapter.java — адаптер списка
-├── api/
-│ ├── ApiClient.java
-│ └── FishingApi.java
-├── model/
-│ ├── Catch.java
-│ └── User.java
-└── utils/
-├── Config.java — BASE_URL
-├── TokenManager.java
-└── LocationHelper.java
+- [x] Регистрация и логин (JWT)
+- [x] Создание улова (с фото через камеру, геолокацией)
+- [x] Просмотр своих и чужих уловов
+- [x] Уловы рядом (карта)
+- [x] Лайки и комментарии
+- [x] Рейтинг (топ-100)
+- [x] Аквариум (топ-5 рыб пользователя)
+- [x] Поиск пользователей
 
+## 🔒 Безопасность
+
+Проект прошёл security-ревью, устранены следующие проблемы:
+
+- **Разделение dev/prod конфигурации сети**: адрес бэкенда (`BASE_URL`) задаётся через `buildConfigField` отдельно для `debug` и `release` сборок (см. `app/build.gradle`).
+- **Cleartext HTTP разрешён только в debug**: `network_security_config.xml` в `src/debug/res/xml` разрешает HTTP только на конкретные адреса локальной разработки (эмулятор, localhost, локальный IP). В `src/release/res/xml` cleartext-трафик запрещён полностью — релизная сборка не сможет случайно уйти в прод с открытым HTTP.
+- **Шифрованное хранилище токена**: JWT-токен и логин хранятся в `EncryptedSharedPreferences` (AES-256), а не в обычных `SharedPreferences` открытым текстом.
+- **`android:allowBackup="false"`**: исключает восстановление данных приложения (включая токен) через `adb backup` на устройствах без root.
+- Убрана неиспользуемая библиотека `org.apache.http.legacy` (лишняя поверхность атаки).
+- Обработка HTTP `429` (rate limit) от бэкенда — отдельное сообщение пользователю вместо общего "неверный логин или пароль".
+
+## ⚙️ Конфигурация окружения
+
+### Debug (локальная разработка)
+Адрес бэкенда задаётся в `app/build.gradle`, блок `buildTypes.debug`:
+```groovy
+buildConfigField "String", "BASE_URL", "\"http://ВАШ_ЛОКАЛЬНЫЙ_IP:8080/\""
+```
+Разрешённые для HTTP адреса дополнительно перечислены в `app/src/debug/res/xml/network_security_config.xml` — при смене IP нужно обновить оба места.
+
+### Release (продакшен)
+```groovy
+buildConfigField "String", "BASE_URL", "\"https://ВАШ_ДОМЕН/\""
+```
+Backend должен быть доступен по HTTPS — cleartext HTTP в release-сборке запрещён на уровне `network_security_config.xml`.
+
+## 🗂 Структура пакетов
+
+```
+com.example.fishingapp
+├── *Activity.java        — экраны (Main, Register, CatchList, AddCatch, EditCatch,
+│                           Aquarium, Settings, Camera, Rating, UserAquarium, Search,
+│                           Map, Comments, CatchDetail)
+├── api/                  — ApiClient, FishingApi (Retrofit)
+├── model/                — модели данных (User, Catch, ...)
+└── utils/                — Config (BuildConfig-based BASE_URL), TokenManager (EncryptedSharedPreferences)
+```
 
 ## 📋 TODO
-- [ ] Увеличить размер маркеров на карте
-- [ ] Клик по метке улова — показать фото
-- [ ] Выбор точки на карте при создании улова
-- [ ] Лайки в приложении
-- [ ] Комментарии в приложении
-- [ ] Детальная страница улова
-- [ ] Улучшение дизайна аквариума
-- [ ] Публикация в Google Play
+
+- [ ] Certificate pinning (после появления HTTPS-домена)
+- [ ] Обработка специфичных HTTP-кодов (404/403) в UI с понятными сообщениями
+- [ ] ИИ-распознавание рыбы (клиентская часть)
+- [ ] Push-уведомления
