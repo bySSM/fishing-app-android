@@ -168,7 +168,19 @@ public class Catch {
     public String getFullPhotoUrl() {
 
         if (photoUrl != null && !photoUrl.isEmpty()) {
-            return Config.BASE_URL + photoUrl;
+            // Config.BASE_URL заканчивается на "/" (например "http://192.168.0.15:8080/"),
+            // а photoUrl из базы начинается с "/" (например "/uploads/xxx.jpg") — простое
+            // сложение строк давало двойной слеш ("...8080//uploads/..."), из-за чего
+            // ResourceHttpRequestHandler на бэкенде не находил совпадение по паттерну
+            // "/uploads/**" и тихо возвращал пустой ответ (без явной ошибки — просто
+            // белый экран). Убираем один из двух слешей перед склейкой.
+            String base = Config.BASE_URL.endsWith("/")
+                    ? Config.BASE_URL.substring(0, Config.BASE_URL.length() - 1)
+                    : Config.BASE_URL;
+
+            String path = photoUrl.startsWith("/") ? photoUrl : "/" + photoUrl;
+
+            return base + path;
         }
 
         return null;

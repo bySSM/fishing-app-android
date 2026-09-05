@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.fishingapp.api.ApiClient;
 import com.example.fishingapp.api.FishingApi;
+import com.example.fishingapp.utils.ApiErrorParser;
 import com.example.fishingapp.utils.TokenManager;
 import java.util.HashMap;
 import java.util.Map;
@@ -59,7 +60,6 @@ public class RegisterActivity extends AppCompatActivity {
         String password = passwordInput.getText().toString().trim();
         String confirmPassword = confirmPasswordInput.getText().toString().trim();
 
-        // Валидация
         if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Заполни все поля", Toast.LENGTH_SHORT).show();
             return;
@@ -110,20 +110,12 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(RegisterActivity.this,
                                 "Регистрация успешна!", Toast.LENGTH_SHORT).show();
 
-                        // В RegisterActivity.java, замени переход:
                         Intent intent = new Intent(RegisterActivity.this, AquariumActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }
                 } else {
-                    String errorMessage = "Ошибка регистрации";
-                    try {
-                        if (response.errorBody() != null) {
-                            errorMessage = response.errorBody().string();
-                        }
-                    } catch (Exception e) {
-                        Log.e(TAG, "Error reading error body", e);
-                    }
+                    String errorMessage = ApiErrorParser.extractMessage(response.errorBody(), response.code());
 
                     Log.e(TAG, "Registration failed: " + response.code() + " - " + errorMessage);
                     Toast.makeText(RegisterActivity.this, errorMessage, Toast.LENGTH_LONG).show();

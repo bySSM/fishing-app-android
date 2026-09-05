@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.fishingapp.utils.ApiErrorParser;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -274,11 +275,13 @@ public class CommentsActivity extends AppCompatActivity
 
                         } else {
 
+                            String message = ApiErrorParser.extractMessage(
+                                    response.errorBody(), response.code());
+
                             Toast.makeText(
                                     CommentsActivity.this,
-                                    "Ошибка загрузки комментариев: "
-                                            + response.code(),
-                                    Toast.LENGTH_SHORT
+                                    message,
+                                    Toast.LENGTH_LONG
                             ).show();
                         }
                     }
@@ -422,11 +425,13 @@ public class CommentsActivity extends AppCompatActivity
 
                         } else {
 
+                            String message = ApiErrorParser.extractMessage(
+                                    response.errorBody(), response.code());
+
                             Toast.makeText(
                                     CommentsActivity.this,
-                                    "Ошибка добавления: "
-                                            + response.code(),
-                                    Toast.LENGTH_SHORT
+                                    message,
+                                    Toast.LENGTH_LONG
                             ).show();
                         }
                     }
@@ -533,11 +538,13 @@ public class CommentsActivity extends AppCompatActivity
 
                         } else {
 
+                            String message = ApiErrorParser.extractMessage(
+                                    response.errorBody(), response.code());
+
                             Toast.makeText(
                                     CommentsActivity.this,
-                                    "Удаление не выполнено: "
-                                            + response.code(),
-                                    Toast.LENGTH_SHORT
+                                    message,
+                                    Toast.LENGTH_LONG
                             ).show();
                         }
                     }

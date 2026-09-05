@@ -14,6 +14,7 @@ import com.example.fishingapp.api.FishingApi;
 import com.example.fishingapp.model.Catch;
 import com.example.fishingapp.model.LikeResponse;
 import com.example.fishingapp.model.LikeStatusResponse;
+import com.example.fishingapp.utils.ApiErrorParser;
 import com.example.fishingapp.utils.TokenManager;
 import com.squareup.picasso.Picasso;
 
@@ -163,11 +164,13 @@ public class CatchDetailActivity extends AppCompatActivity {
 
                         } else {
 
+                            String message = ApiErrorParser.extractMessage(
+                                    response.errorBody(), response.code());
+
                             Toast.makeText(
                                     CatchDetailActivity.this,
-                                    "Не удалось загрузить улов: "
-                                            + response.code(),
-                                    Toast.LENGTH_SHORT
+                                    message,
+                                    Toast.LENGTH_LONG
                             ).show();
 
                             finish();
@@ -371,11 +374,13 @@ public class CatchDetailActivity extends AppCompatActivity {
 
                         } else {
 
+                            String message = ApiErrorParser.extractMessage(
+                                    response.errorBody(), response.code());
+
                             Toast.makeText(
                                     CatchDetailActivity.this,
-                                    "Ошибка лайка: "
-                                            + response.code(),
-                                    Toast.LENGTH_SHORT
+                                    message,
+                                    Toast.LENGTH_LONG
                             ).show();
                         }
                     }

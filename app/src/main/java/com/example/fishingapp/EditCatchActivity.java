@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.fishingapp.api.ApiClient;
 import com.example.fishingapp.api.FishingApi;
 import com.example.fishingapp.model.Catch;
+import com.example.fishingapp.utils.ApiErrorParser;
 import com.example.fishingapp.utils.TokenManager;
 import java.util.HashMap;
 import java.util.Map;
@@ -121,8 +122,8 @@ public class EditCatchActivity extends AppCompatActivity {
                     Toast.makeText(EditCatchActivity.this, "Улов обновлён!", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
-                    Toast.makeText(EditCatchActivity.this,
-                            "Ошибка: " + response.code(), Toast.LENGTH_SHORT).show();
+                    String message = ApiErrorParser.extractMessage(response.errorBody(), response.code());
+                    Toast.makeText(EditCatchActivity.this, message, Toast.LENGTH_LONG).show();
                 }
             }
 

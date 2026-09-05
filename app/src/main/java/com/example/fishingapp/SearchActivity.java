@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.fishingapp.api.ApiClient;
 import com.example.fishingapp.api.FishingApi;
+import com.example.fishingapp.utils.ApiErrorParser;
 import com.example.fishingapp.utils.TokenManager;
 import java.util.ArrayList;
 import java.util.List;
@@ -130,8 +131,8 @@ public class SearchActivity extends AppCompatActivity {
                         resultsListView.setVisibility(ListView.VISIBLE);
                     }
                 } else {
-                    Toast.makeText(SearchActivity.this,
-                            "Ошибка: " + response.code(), Toast.LENGTH_SHORT).show();
+                    String message = ApiErrorParser.extractMessage(response.errorBody(), response.code());
+                    Toast.makeText(SearchActivity.this, message, Toast.LENGTH_LONG).show();
                 }
             }
 

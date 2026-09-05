@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.fishingapp.api.ApiClient;
 import com.example.fishingapp.api.FishingApi;
 import com.example.fishingapp.model.Catch;
+import com.example.fishingapp.utils.ApiErrorParser;
 import com.example.fishingapp.utils.LocationHelper;
 import com.example.fishingapp.utils.TokenManager;
 import java.io.File;
@@ -206,8 +207,8 @@ public class AddCatchActivity extends AppCompatActivity {
                     Toast.makeText(AddCatchActivity.this, "Улов сохранён!", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
-                    Toast.makeText(AddCatchActivity.this,
-                            "Ошибка: " + response.code(), Toast.LENGTH_SHORT).show();
+                    String message = ApiErrorParser.extractMessage(response.errorBody(), response.code());
+                    Toast.makeText(AddCatchActivity.this, message, Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -265,8 +266,8 @@ public class AddCatchActivity extends AppCompatActivity {
                         Toast.makeText(AddCatchActivity.this, "Улов с фото сохранён!", Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
-                        Toast.makeText(AddCatchActivity.this,
-                                "Ошибка: " + response.code(), Toast.LENGTH_SHORT).show();
+                        String message = ApiErrorParser.extractMessage(response.errorBody(), response.code());
+                        Toast.makeText(AddCatchActivity.this, message, Toast.LENGTH_LONG).show();
                     }
                 }
 

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.fishingapp.api.ApiClient;
 import com.example.fishingapp.api.FishingApi;
 import com.example.fishingapp.model.Catch;
+import com.example.fishingapp.utils.ApiErrorParser;
 import com.example.fishingapp.utils.TokenManager;
 
 import java.util.ArrayList;
@@ -200,11 +201,13 @@ public class CatchListActivity extends AppCompatActivity implements CatchAdapter
 
                         } else {
 
+                            String message = ApiErrorParser.extractMessage(
+                                    response.errorBody(), response.code());
+
                             Toast.makeText(
                                     CatchListActivity.this,
-                                    "Ошибка загрузки: "
-                                            + response.code(),
-                                    Toast.LENGTH_SHORT
+                                    message,
+                                    Toast.LENGTH_LONG
                             ).show();
                         }
                     }
@@ -381,11 +384,13 @@ public class CatchListActivity extends AppCompatActivity implements CatchAdapter
 
                         } else {
 
+                            String message = ApiErrorParser.extractMessage(
+                                    response.errorBody(), response.code());
+
                             Toast.makeText(
                                     CatchListActivity.this,
-                                    "Ошибка удаления: "
-                                            + response.code(),
-                                    Toast.LENGTH_SHORT
+                                    message,
+                                    Toast.LENGTH_LONG
                             ).show();
                         }
                     }

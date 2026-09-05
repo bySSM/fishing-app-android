@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.fishingapp.api.ApiClient;
 import com.example.fishingapp.api.FishingApi;
+import com.example.fishingapp.utils.ApiErrorParser;
 import com.example.fishingapp.utils.TokenManager;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.loginButton);
         registerButton = findViewById(R.id.registerButton);
 
-        // Если уже залогинен — сразу переходим к списку
         if (tokenManager.isLoggedIn()) {
             openAquarium();
             return;
@@ -95,7 +95,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 } else {
                     Log.e(TAG, "Login failed: " + response.code());
-                    Toast.makeText(MainActivity.this, "Неверный логин или пароль", Toast.LENGTH_SHORT).show();
+                    if (response.code() == 429) {
+                        String message = ApiErrorParser.extractMessage(response.errorBody(), response.code());
+                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Неверный логин или пароль", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
@@ -112,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // В MainActivity.java, замени openCatchList():
     private void openAquarium() {
         Intent intent = new Intent(MainActivity.this, AquariumActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
