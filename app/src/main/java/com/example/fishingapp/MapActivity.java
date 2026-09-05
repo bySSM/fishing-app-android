@@ -43,16 +43,26 @@ public class MapActivity extends AppCompatActivity {
     private static final int CATCH_MARKER_HEIGHT_DP = 70;
     private static final int MY_LOCATION_MARKER_DP = 48;
 
+    private static final double RADIUS_ALL_KM = 20000;
+    private static final double DEFAULT_RADIUS_KM = 50;
+
     private MapView mapView;
     private TokenManager tokenManager;
     private FishingApi api;
     private Button backButton;
     private Button nearbyButton;
+    private Button showMeButton;
+    private Button radius10Button;
+    private Button radius50Button;
+    private Button radius100Button;
+    private Button radiusAllButton;
     private List<Marker> markers = new ArrayList<>();
     private Marker myLocationMarker;
     private LocationHelper locationHelper;
     private double currentLat = 55.7558;
     private double currentLng = 37.6173;
+    private double currentRadiusKm = DEFAULT_RADIUS_KM;
+    private boolean hasCenteredOnUser = false;
 
     private Drawable catchMarkerIcon;
     private Drawable myLocationIcon;
@@ -86,9 +96,24 @@ public class MapActivity extends AppCompatActivity {
 
         backButton = findViewById(R.id.backButton);
         nearbyButton = findViewById(R.id.nearbyButton);
+        showMeButton = findViewById(R.id.showMeButton);
+        radius10Button = findViewById(R.id.radius10Button);
+        radius50Button = findViewById(R.id.radius50Button);
+        radius100Button = findViewById(R.id.radius100Button);
+        radiusAllButton = findViewById(R.id.radiusAllButton);
 
         backButton.setOnClickListener(v -> finish());
         nearbyButton.setOnClickListener(v -> loadNearbyCatches());
+
+        showMeButton.setOnClickListener(v -> {
+            hasCenteredOnUser = false;
+            getCurrentLocation();
+        });
+
+        radius10Button.setOnClickListener(v -> selectRadius(10, radius10Button));
+        radius50Button.setOnClickListener(v -> selectRadius(50, radius50Button));
+        radius100Button.setOnClickListener(v -> selectRadius(100, radius100Button));
+        radiusAllButton.setOnClickListener(v -> selectRadius(RADIUS_ALL_KM, radiusAllButton));
 
         mapView = findViewById(R.id.mapView);
         mapView.setTileSource(TileSourceFactory.OpenTopo);
@@ -102,7 +127,25 @@ public class MapActivity extends AppCompatActivity {
         mapView.getController().setZoom(10.0);
         mapView.getController().setCenter(startPoint);
 
+        highlightSelectedRadiusButton(radius50Button);
         getCurrentLocation();
+    }
+
+    private void selectRadius(double radiusKm, Button selectedButton) {
+        currentRadiusKm = radiusKm;
+        highlightSelectedRadiusButton(selectedButton);
+        loadNearbyCatches();
+    }
+
+    private void highlightSelectedRadiusButton(Button selected) {
+        Button[] all = {radius10Button, radius50Button, radius100Button, radiusAllButton};
+        for (Button b : all) {
+            boolean isSelected = (b == selected);
+            b.setBackgroundTintList(ContextCompat.getColorStateList(
+                    this, isSelected ? R.color.primary : R.color.surface));
+            b.setTextColor(ContextCompat.getColor(
+                    this, isSelected ? R.color.text_on_primary : R.color.text_primary));
+        }
     }
 
     private void setupMapClickToCloseInfo() {
@@ -132,24 +175,22 @@ public class MapActivity extends AppCompatActivity {
 
                 Log.d(TAG, "Местоположение: " + latitude + ", " + longitude);
 
-                GeoPoint myPosition = new GeoPoint(latitude, longitude);
-                mapView.getController().setCenter(myPosition);
-                mapView.getController().setZoom(12.0);
+                if (!hasCenteredOnUser) {
+                    hasCenteredOnUser = true;
+                    GeoPoint myPosition = new GeoPoint(latitude, longitude);
+                    mapView.getController().setCenter(myPosition);
+                    mapView.getController().setZoom(12.0);
+                    loadNearbyCatches();
+                }
 
                 updateMyLocationMarker(latitude, longitude);
-
-                Toast.makeText(MapActivity.this,
-                        "Location: " + String.format("%.4f, %.4f", latitude, longitude),
-                        Toast.LENGTH_LONG).show();
-
-                loadNearbyCatches();
             }
 
             @Override
             public void onLocationError(String error) {
                 Log.e(TAG, "Error: " + error);
                 Toast.makeText(MapActivity.this,
-                        "Error " + error,
+                        "Не удалось определить местоположение: " + error,
                         Toast.LENGTH_LONG).show();
             }
         });
@@ -179,7 +220,7 @@ public class MapActivity extends AppCompatActivity {
 
         String authHeader = "Bearer " + token;
 
-        api.getNearbyCatches(authHeader, currentLat, currentLng, 100).enqueue(
+        api.getNearbyCatches(authHeader, currentLat, currentLng, currentRadiusKm).enqueue(
                 new Callback<List<Catch>>() {
                     @Override
                     public void onResponse(Call<List<Catch>> call, Response<List<Catch>> response) {

@@ -6,13 +6,11 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <!-- Карта -->
     <org.osmdroid.views.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- Кнопка назад -->
     <Button
         android:id="@+id/backButton"
         style="@style/FishingApp.Button.Text"
@@ -31,7 +29,86 @@
         android:elevation="4dp"
         android:contentDescription="Назад" />
 
-    <!-- Уловы рядом -->
+    <LinearLayout
+        android:id="@+id/radiusFilterGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:layout_marginEnd="@dimen/spacing_medium"
+        android:orientation="horizontal"
+        android:background="@color/surface"
+        android:elevation="4dp"
+        android:padding="4dp">
+
+        <Button
+            android:id="@+id/radius10Button"
+            style="@style/FishingApp.Button.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="10 км"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/radius50Button"
+            style="@style/FishingApp.Button.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="50 км"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/radius100Button"
+            style="@style/FishingApp.Button.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="100 км"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/radiusAllButton"
+            style="@style/FishingApp.Button.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="Всё"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/showMeButton"
+        style="@style/FishingApp.Button.Text"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/spacing_medium"
+        android:layout_marginBottom="96dp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:padding="0dp"
+        android:text="📍"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:backgroundTint="@color/surface"
+        android:elevation="6dp"
+        android:contentDescription="Показать меня" />
+
     <Button
         android:id="@+id/nearbyButton"
         style="@style/FishingApp.Button.Primary"
